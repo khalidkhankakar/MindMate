@@ -33,10 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider dynamic>
     <html lang="en">
       <body
-        className={`${fontMontserrat.variable}`}
+        className={`${fontMontserrat.variable} h-screen`}
       >
         {children}
       </body>
