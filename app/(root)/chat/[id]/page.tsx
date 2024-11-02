@@ -1,22 +1,28 @@
 import Chat from "@/components/chat"
 import { getChatById } from "@/lib/db/queries"
+import { DEFAULT_MODEL_ID } from "@/lib/utils"
 import { auth } from "@clerk/nextjs/server"
 import {  Message } from "ai"
-import { notFound } from "next/navigation"
+import {  redirect } from "next/navigation"
+import { cookies } from "next/headers";
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
+
   const { userId } = await auth()
   const id = (await params).id
 
 
   const getChat = await getChatById({ id })
   if (!getChat) {
-    return notFound()
+    return redirect('/')
   }
 
   if (getChat.createdBy != userId) {
-    return notFound()
+    return redirect('/')
   }
+
+  const cookieStore = await cookies()
+  let modelId = cookieStore.get('model')?.value || DEFAULT_MODEL_ID
 
   const initialMessages = getChat.messages as Array<Message>
 
@@ -26,6 +32,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
       <Chat 
       chatId={getChat.id} 
       initialMessages={initialMessages}
+      model={modelId}
       />
     </div>
     <p className="text-[12px] text-gray-500 italic text-center mx-5">MindMate can make the mistakes please double check the information</p>

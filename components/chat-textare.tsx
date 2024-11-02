@@ -2,7 +2,7 @@ import { ChatRequestOptions, CreateMessage, Message } from 'ai';
 import React from 'react'
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-import { Send, Square } from 'lucide-react';
+import { ArrowUp, Send, Square } from 'lucide-react';
 
 
 interface ChatTextareaProps {
@@ -34,26 +34,23 @@ const ChatTextarea = ({
 }: ChatTextareaProps) => {
 
 
-    const submitForm = ()=>{
+    const submitForm = () => {
         handleSubmit()
     }
 
 
     return (
-        <form className=' w-full flex items-center '>
+        <form className='w-full flex items-end border-2 border-gray-400 flex-col focus:ring-1 focus:ring-black justify-end p-1 rounded-md'>
             <Textarea
                 value={input}
                 placeholder='Ask from MindMate...'
-                className='flex-1 border-none '
+                className='flex-1 border-none outline-none font-lg placeholder:font-semibold placeholder:truncate '
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)}
                 rows={2}
                 onKeyDown={(event) => {
                     if (event.key === 'Enter' && !event.shiftKey) {
                         event.preventDefault();
-
-                        if (isLoading) {
-                            console.log('Please wait for the model to finish its response!');
-                        } else {
+                        if (!isLoading) {
                             submitForm();
                         }
                     }
@@ -64,21 +61,24 @@ const ChatTextarea = ({
                 isLoading ?
 
                     <Button
-                    className='h-full'
-                    onClick={(e) => {
-                        e.preventDefault();
-                        stop()
-                    }}>
-                        <Square size={22} className='text-black bg-black' />
+                        variant={'secondary'}
+                        className='h-full bg-gray-300 '
+                        onClick={(e) => {
+                            e.preventDefault();
+                            stop()
+                        }}>
+
+                        <Square size={19} className='text-black bg-black' />
                     </Button>
 
                     : <Button
-                    className='h-full' onClick={(e) => {
-                        e.preventDefault();
-                        submitForm()
-                        
-                    }}>
-                        <Send size={22} />
+                        variant={'secondary'}
+                        className='h-full bg-gray-300 ' onClick={(e) => {
+                            e.preventDefault();
+                            submitForm()
+
+                        }}>
+                        <ArrowUp size={19} className='text-gray-500' />
                     </Button>
             }
         </form>

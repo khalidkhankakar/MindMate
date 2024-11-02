@@ -6,20 +6,23 @@ import DisplayMessages from "./display-messages";
 import ChatTextarea from "./chat-textare";
 import { useAuth } from "@clerk/nextjs";
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { mutate } from "swr";
 
 interface ChatProps {
   chatId: string;
   initialMessages: Array<Message>
+  model:string
 }
 
 
-const Chat = ({ chatId, initialMessages }: ChatProps) => {
+const Chat = ({ chatId, initialMessages,model }: ChatProps) => {
   const { userId } = useAuth();
   const { messages, input, setInput, handleSubmit, isLoading, stop, append } =
     useChat({
-      body: { id: chatId, userId },
+      body: { id: chatId, userId,model },
       initialMessages,
       onFinish: () => {
+        mutate(`/api/chat/${userId}`);
         window.history.replaceState({}, '', `/chat/${chatId}`)
       }
     })
@@ -27,7 +30,6 @@ const Chat = ({ chatId, initialMessages }: ChatProps) => {
   return (
     <div className='h-full w-[90%] md:w-[70%] lg:w-[50%] flex flex-col justify-between items-center'>
       {messages.length <= 0 && <ChatOverview />}
-
 
       <div className="flex flex-col w-full  overflow-hidden">
         <ScrollArea className="flex-grow p-4">
