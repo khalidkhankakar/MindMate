@@ -39,3 +39,56 @@ MindMate
 ├── components         # Reusable UI components
 ├── lib                # Schemas, Queries of Drizzle ORM and database connection  
 ├── public             # Static assets
+```
+## ⚙️ Setup Instructions
+
+Follow these steps to set up and run the MindMate project locally:
+
+1. **Clone the Repository**:
+   First, clone the project repository from GitHub to your local machine:
+    ```bash
+    git clone https://github.com/khalidkhankakar/MindMate.git
+    cd MindMate
+    ```
+
+2. **Install Dependencies**:
+   Install all required dependencies by running:
+    ```bash
+    npm install
+    ```
+
+3. **Set Up Environment Variables**:
+   - Create a `.env.local` file in the root directory.
+   - Add the following environment variables, replacing the placeholders with your actual configuration values:
+
+    ```env
+     GROQ_API_KEY=*************
+     DATABASE_URL=postgresql://neondb_owner:{name}@{password}.us-east-2.aws.neon.tech/neondb?sslmode=require
+     WEBHOOK_SECRET=*************
+     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=*************
+     CLERK_SECRET_KEY=s=*************
+     NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+     NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+    ```
+
+4. **Database Migration**:
+   Run the following command to set up the database schema using Drizzle ORM:
+    ```bash
+    npx drizzle-kit generate
+    npx drizzle-kit push
+    ```
+
+5. **Run the Development Server**:
+   Start the development server with:
+    ```bash
+    npm run dev
+    ```
+
+   The application will be available at `http://localhost:3000`.
+
+---
+
+You're all set! Follow these steps, and you should have MindMate up and running locally.
+
+
