@@ -1,5 +1,5 @@
 # MindMate
-<img src='./thumbnail.png'>
+<img src='./public/thumbnail.png'>
 MindMate is a ChatGPT clone designed for powerful and efficient conversational AI, leveraging multiple large language models to provide a flexible and dynamic interaction experience. Built with **Next.js 14** and using **Hono** for fast, serverless API handling, MindMate brings together several powerful AI models and robust backend integrations for a comprehensive chatbot application.
 
 ## 📋 Project Overview
